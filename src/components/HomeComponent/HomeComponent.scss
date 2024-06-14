@@ -5,7 +5,7 @@
   margin-top: 50px;
   gap: 100px;
 
-  @media (max-width: 375px) {
+  @media (max-width: 500px) {
     flex-direction: column;
   }
 
@@ -27,7 +27,7 @@
     grid-template-columns: repeat(4, 1fr);
     gap: 100px;
 
-    @media (max-width: 375px) {
+    @media (max-width: 500px) {
       grid-template-columns: 1fr;
     }
   }

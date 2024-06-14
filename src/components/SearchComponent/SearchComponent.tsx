@@ -4,8 +4,10 @@ import { SearchOutlined } from "@ant-design/icons";
 import { CountryInterface } from "../../interfaces/CountryInterface";
 
 export const SearchComponent = ({
+  search,
   handleSearchText,
 }: {
+  search: string;
   handleSearchText: (text: string) => void;
 }) => {
   const [countries, setCountries] = useState<CountryInterface[]>([]);
@@ -20,6 +22,7 @@ export const SearchComponent = ({
     <div className="search-container">
       <Input
         onChange={(e) => handleSearch(e.target.value)}
+        value={search}
         size="large"
         placeholder="Search for a country..."
         prefix={<SearchOutlined />}
