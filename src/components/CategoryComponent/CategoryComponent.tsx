@@ -1,51 +1,39 @@
-import { DownOutlined, UserOutlined } from "@ant-design/icons";
+import { DownOutlined, CloseOutlined } from "@ant-design/icons";
 import type { MenuProps } from "antd";
-import { Button, Dropdown, message, Space, Tooltip } from "antd";
+import { Button, Dropdown, Space } from "antd";
 
-const items: MenuProps["items"] = [
-  {
-    label: "1st menu item",
-    key: "1",
-    icon: <UserOutlined />,
-  },
-  {
-    label: "2nd menu item",
-    key: "2",
-    icon: <UserOutlined />,
-  },
-  {
-    label: "3rd menu item",
-    key: "3",
-    icon: <UserOutlined />,
-    danger: true,
-  },
-  {
-    label: "4rd menu item",
-    key: "4",
-    icon: <UserOutlined />,
-    danger: true,
-    disabled: true,
-  },
-];
+interface CategoryComponentProps {
+  region: string;
+  regions: MenuProps["items"];
+  handleCategorySelect: (text: string) => void;
+}
 
-const handleMenuClick: MenuProps["onClick"] = (e) => {
-  message.info("Click on menu item.");
-  console.log("click", e);
-};
+export const CategoryComponent: React.FC<CategoryComponentProps> = ({
+  region,
+  regions,
+  handleCategorySelect,
+}) => {
+  const items: MenuProps["items"] = regions;
 
-const menuProps = {
-  items,
-  onClick: handleMenuClick,
-};
+  const handleMenuClick: MenuProps["onClick"] = (e) => {
+    handleCategorySelect(e.key);
+  };
 
-export const CategoryComponent = () => {
   return (
     <div className="category-container">
-      <Dropdown menu={menuProps}>
+      <Dropdown
+        menu={{
+          items,
+          onClick: handleMenuClick,
+          selectable: true,
+          selectedKeys: [region],
+        }}
+      >
         <Button>
           <Space>
-            Filter by Region
-            <DownOutlined />
+            {region ? region : "Filter by Region"}
+            {region && <CloseOutlined onClick={() => handleCategorySelect("")} />}
+            {!region && <DownOutlined />}
           </Space>
         </Button>
       </Dropdown>
