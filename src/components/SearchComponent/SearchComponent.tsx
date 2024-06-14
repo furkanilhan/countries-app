@@ -1,14 +1,25 @@
 import { useEffect, useState } from "react";
 import { Input } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
+import { CountryInterface } from "../../interfaces/CountryInterface";
 
-export const SearchComponent = () => {
-  const [search, setSearch] = useState("");
+export const SearchComponent = ({
+  handleSearchText,
+}: {
+  handleSearchText: (text: string) => void;
+}) => {
+  const [countries, setCountries] = useState<CountryInterface[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [httpError, setHttpError] = useState(null);
+
+  const handleSearch = (text: string) => {
+    handleSearchText(text);
+  };
 
   return (
     <div className="search-container">
       <Input
-        onChange={(e) => setSearch(e.target.value)}
+        onChange={(e) => handleSearch(e.target.value)}
         size="large"
         placeholder="Search for a country..."
         prefix={<SearchOutlined />}
