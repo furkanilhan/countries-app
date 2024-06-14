@@ -7,13 +7,19 @@ import "./HomeComponent.scss";
 
 export const HomeComponent = () => {
   const [countries, setCountries] = useState<CountryInterface[]>([]);
+  const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState(null);
 
   useEffect(() => {
     const fetchBooks = async () => {
-      const baseUrl: string = "https://restcountries.com/v3.1/all";
-      const url: string = `${baseUrl}`;
+      const baseUrl: string = "https://restcountries.com/v3.1";
+      let url: string = "";
+      if (search == "") {
+        url = `${baseUrl}/all`;
+      } else {
+        url = `${baseUrl}/name/${search}`;
+      }
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error("Something went wrong!");
@@ -38,12 +44,16 @@ export const HomeComponent = () => {
       setIsLoading(false);
       setHttpError(error.message);
     });
-  }, []);
+  }, [search]);
+
+  const handleSearchText = (search: string) => {
+    setSearch(search);
+  };
 
   return (
     <>
       <div className="filter-container">
-        <SearchComponent />
+        <SearchComponent handleSearchText={handleSearchText} />
         <CategoryComponent />
       </div>
       <div className="grid-container">
