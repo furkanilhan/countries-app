@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
 import { Input } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
-import { CountryInterface } from "../../interfaces/CountryInterface";
+import { useDarkMode } from "./../../providers/DarkModeContext";
 
 export const SearchComponent = ({
   search,
@@ -10,9 +9,11 @@ export const SearchComponent = ({
   search: string;
   handleSearchText: (text: string) => void;
 }) => {
-  const [countries, setCountries] = useState<CountryInterface[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [httpError, setHttpError] = useState(null);
+  const { darkMode } = useDarkMode();
+
+  const inputStyle = darkMode
+    ? { backgroundColor: "#26303b", color: "#fff", border: "none" }
+    : { backgroundColor: "#f9f9f9", color: "#000", border: "none" };
 
   const handleSearch = (text: string) => {
     handleSearchText(text);
@@ -25,7 +26,8 @@ export const SearchComponent = ({
         value={search}
         size="large"
         placeholder="Search for a country..."
-        prefix={<SearchOutlined />}
+        style={inputStyle}
+        prefix={<SearchOutlined style={inputStyle} />}
       />
     </div>
   );

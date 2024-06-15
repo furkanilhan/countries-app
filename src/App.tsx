@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import { CountryDetailComponent } from "./components/CountryDetailComponent/CountryDetailComponent";
-
 import { HeaderComponent } from "./components/HeaderComponent/HeaderComponent";
-import { HomeComponent } from "./components/HomeComponent/HomeComponent";
+import HomeComponent from "./components/HomeComponent/HomeComponent";
+
 export const App = () => {
   return (
     <>

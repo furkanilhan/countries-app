@@ -1,7 +1,10 @@
+.home-container {
+  padding: 20px;
+}
+
 .filter-container {
   display: flex;
   justify-content: space-between;
-  background-color: #fff;
   margin-top: 50px;
   gap: 100px;
 
@@ -16,6 +19,16 @@
   .category-container {
     flex: 1;
   }
+}
+
+.darker-mode {
+  background-color: #1d282f;
+  color: #fff;
+}
+
+.light-mode {
+  background-color: #fff;
+  color: #000;
 }
 
 .grid-container {
