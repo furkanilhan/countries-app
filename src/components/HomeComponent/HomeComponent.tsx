@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDarkMode } from "./../../providers/DarkModeContext";
 import { CategoryComponent } from "../CategoryComponent/CategoryComponent";
 import { CountryCardComponent } from "../CountryCardComponent/CountryCardComponent";
@@ -73,9 +73,10 @@ const HomeComponent = () => {
   };
 
   return (
-    <div className={`home-container ${darkMode ? "darker-mode" : "light-mode"}`}>
+    <div className={`home-container ${darkMode ? "darker-mode" : "home-light-mode"}`}>
       <div className="filter-container">
         <SearchComponent handleSearchText={handleSearchText} search={search} />
+
         <CategoryComponent
           handleCategorySelect={handleCategorySelect}
           region={region}

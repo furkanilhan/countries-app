@@ -2,6 +2,16 @@
   padding: 20px;
 }
 
+.darker-mode {
+  background-color: #1d282f;
+  color: #fff;
+}
+
+.home-light-mode {
+  background-color: #f9f9f9;
+  color: #000;
+}
+
 .filter-container {
   display: flex;
   justify-content: space-between;
@@ -19,16 +29,46 @@
   .category-container {
     flex: 1;
   }
-}
 
-.darker-mode {
-  background-color: #1d282f;
-  color: #fff;
-}
+  .input-container {
+    position: relative;
+  }
 
-.light-mode {
-  background-color: #fff;
-  color: #000;
+  .input-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px;
+  }
+
+  .custom-input {
+    padding-left: 30px;
+    width: 300px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+  }
+
+  .custom-input::placeholder {
+    color: #999;
+  }
+
+  .dark-mode {
+    .input-icon {
+      color: #ccc;
+    }
+
+    .custom-input {
+      background-color: #26303b;
+      color: #fff;
+    }
+
+    .custom-input::placeholder {
+      color: #fff;
+    }
+  }
 }
 
 .grid-container {

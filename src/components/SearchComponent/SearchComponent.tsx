@@ -1,4 +1,3 @@
-import { Input } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { useDarkMode } from "./../../providers/DarkModeContext";
 
@@ -15,19 +14,21 @@ export const SearchComponent = ({
     ? { backgroundColor: "#26303b", color: "#fff", border: "none" }
     : { backgroundColor: "#f9f9f9", color: "#000", border: "none" };
 
-  const handleSearch = (text: string) => {
-    handleSearchText(text);
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleSearchText(e.target.value);
   };
 
   return (
-    <div className="search-container">
-      <Input
-        onChange={(e) => handleSearch(e.target.value)}
+    <div className={`input-container ${darkMode ? "dark-mode" : ""}`}>
+      <div className="input-icon">
+        <SearchOutlined />
+      </div>
+      <input
         value={search}
-        size="large"
-        placeholder="Search for a country..."
-        style={inputStyle}
-        prefix={<SearchOutlined style={inputStyle} />}
+        onChange={handleSearch}
+        className="custom-input"
+        type="text"
+        placeholder="Search"
       />
     </div>
   );
