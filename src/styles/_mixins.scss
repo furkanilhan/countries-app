@@ -1,0 +1,20 @@
+@mixin theme($theme, $color-key) {
+  background-color: map-get($theme, $color-key);
+  color: map-get($theme, text-color);
+}
+
+@mixin light-theme-primary {
+  @include theme($light-theme, primary-color);
+}
+
+@mixin dark-theme-primary {
+  @include theme($dark-theme, primary-color);
+}
+
+@mixin light-theme-secondary {
+  @include theme($light-theme, secondary-color);
+}
+
+@mixin dark-theme-secondary {
+  @include theme($dark-theme, secondary-color);
+}

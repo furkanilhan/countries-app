@@ -1,0 +1,24 @@
+@import "./styles/_variables";
+@import "./styles/_mixins";
+
+.app {
+  min-height: 100vh;
+}
+
+.lightTheme {
+  &.primary {
+    @include light-theme-primary;
+  }
+  &.secondary {
+    @include light-theme-secondary;
+  }
+}
+
+.darkTheme {
+  &.primary {
+    @include dark-theme-primary;
+  }
+  &.secondary {
+    @include dark-theme-secondary;
+  }
+}
