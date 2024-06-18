@@ -10,7 +10,7 @@ export const App = () => {
   const { theme } = useTheme();
   return (
     <div
-      className={`${styles.app} ${theme === "dark" ? styles.darkTheme : styles.lightTheme} ${
+      className={`${styles.app} ${theme ? styles.darkTheme : styles.lightTheme} ${
         styles.secondary
       }`}
     >
