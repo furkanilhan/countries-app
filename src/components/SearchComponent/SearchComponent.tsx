@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
-import { Input } from "antd";
+import { useState } from "react";
 import { SearchOutlined } from "@ant-design/icons";
+import styles from "./../../App.module.scss";
+import { useTheme } from "./../../context/ThemeContext";
 import { CountryInterface } from "../../interfaces/CountryInterface";
 
 export const SearchComponent = ({
@@ -13,19 +14,27 @@ export const SearchComponent = ({
   const [countries, setCountries] = useState<CountryInterface[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState(null);
+  const { theme } = useTheme();
 
-  const handleSearch = (text: string) => {
-    handleSearchText(text);
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleSearchText(e.target.value);
   };
 
   return (
-    <div className="search-container">
-      <Input
-        onChange={(e) => handleSearch(e.target.value)}
+    <div
+      className={`input-container ${theme ? styles.darkTheme : styles.lightTheme} ${
+        styles.primary
+      }`}
+    >
+      <div className="input-icon">
+        <SearchOutlined />
+      </div>
+      <input
         value={search}
-        size="large"
-        placeholder="Search for a country..."
-        prefix={<SearchOutlined />}
+        onChange={handleSearch}
+        className="custom-input"
+        type="text"
+        placeholder="Search"
       />
     </div>
   );
