@@ -10,9 +10,7 @@ export const App = () => {
   const { theme } = useTheme();
   return (
     <div
-      className={`${styles.app} ${theme ? styles.darkTheme : styles.lightTheme} ${
-        styles.secondary
-      }`}
+      className={`${styles.app} ${theme ? styles.darkTheme : styles.lightTheme} ${styles.primary}`}
     >
       <HeaderComponent />
       <Routes>
