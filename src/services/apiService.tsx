@@ -14,7 +14,11 @@ export const fetchData = async (search: string, region: string) => {
 
   const response = await fetch(url);
   if (!response.ok) {
-    throw new Error("Something went wrong!");
+    if (response.status === 404) {
+      return 404;
+    } else {
+      throw new Error("Something went wrong!");
+    }
   }
   return await response.json();
 };

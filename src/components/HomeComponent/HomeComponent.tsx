@@ -3,7 +3,7 @@ import { CategoryComponent } from "../CategoryComponent/CategoryComponent";
 import { CountryCardComponent } from "../CountryCardComponent/CountryCardComponent";
 import { SearchComponent } from "../SearchComponent/SearchComponent";
 import { CountryInterface } from "../../interfaces/CountryInterface";
-import { MenuProps, Layout } from "antd";
+import { MenuProps, Layout, Spin, message, Empty } from "antd";
 import { fetchData } from "../../services/apiService";
 import "./HomeComponent.scss";
 
@@ -16,6 +16,7 @@ export const HomeComponent = () => {
   const [regions, setRegions] = useState<MenuProps["items"]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState(null);
+  const [messageApi, contextHolder] = message.useMessage();
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -48,6 +49,11 @@ export const HomeComponent = () => {
     fetchBooks().catch((error: any) => {
       setIsLoading(false);
       setHttpError(error.message);
+      console.log(error);
+      messageApi.open({
+        type: "error",
+        content: error.message,
+      });
     });
   }, [search, region]);
 
@@ -59,26 +65,36 @@ export const HomeComponent = () => {
     setSearch("");
     setRegion(region);
   };
-
   return (
     <Content>
-      <div className="page-container">
-        <div className="filter-container">
-          <SearchComponent handleSearchText={handleSearchText} search={search} />
-          <CategoryComponent
-            handleCategorySelect={handleCategorySelect}
-            region={region}
-            regions={regions}
-          />
-        </div>
-        <div className="grid-container">
-          <div className="card-container">
-            {countries.map((country) => (
-              <CountryCardComponent country={country} />
-            ))}
+      {contextHolder}
+      {isLoading ? (
+        <Spin spinning={isLoading} percent="auto" fullscreen />
+      ) : (
+        <div className="page-container">
+          <div className="filter-container">
+            <SearchComponent handleSearchText={handleSearchText} search={search} />
+            <CategoryComponent
+              handleCategorySelect={handleCategorySelect}
+              region={region}
+              regions={regions}
+            />
+          </div>
+          <div className="grid-container">
+            {countries.length > 0 ? (
+              <div className="card-container">
+                {countries.map((country, index) => (
+                  <CountryCardComponent key={index} country={country} />
+                ))}
+              </div>
+            ) : (
+              <div className="empty-container">
+                <Empty />
+              </div>
+            )}
           </div>
         </div>
-      </div>
+      )}
     </Content>
   );
 };

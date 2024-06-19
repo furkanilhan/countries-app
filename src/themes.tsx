@@ -1,0 +1,27 @@
+export const themes = {
+  light: {
+    colorBgBase: "white",
+    colorPrimary: "black",
+    colorTextBase: "black",
+    bodyBg: "#f9f9f9",
+    headerBg: "white",
+    headerColor: "black",
+    colorBgContainer: "white",
+    colorBgElevated: "white",
+    colorBgTextActive: "red",
+    defaultActiveBg: "red",
+    fontFamily: "Nunito Sans",
+  },
+  dark: {
+    colorBgBase: "#1d282f",
+    colorPrimary: "white",
+    colorTextBase: "white",
+    bodyBg: "#1d282f",
+    headerBg: "#26303b",
+    headerColor: "white",
+    colorBgContainer: "#26303b",
+    colorBgElevated: "#26303b",
+    colorTextQuaternary: "white",
+    fontFamily: "Nunito Sans",
+  },
+};

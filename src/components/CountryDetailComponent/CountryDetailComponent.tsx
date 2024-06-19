@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ArrowLeftOutlined } from "@ant-design/icons";
-import { Button, Row, Col, Layout } from "antd";
+import { Button, Row, Col, Layout, Spin } from "antd";
 import { Link, useParams } from "react-router-dom";
 import { useTheme } from "../../contexts/ThemeContext";
 import { fetchCountryDataByName, fetchCountryDataByAlphaCode } from "../../services/apiService";
@@ -24,6 +24,7 @@ export const CountryDetailComponent = () => {
         if (!countryName) {
           throw new Error("Country name is not provided");
         }
+
         const loadedCountry = await fetchCountryDataByName(countryName);
         setCountry(loadedCountry);
 
@@ -48,90 +49,94 @@ export const CountryDetailComponent = () => {
 
   return (
     <Content>
-      <div className="country-detail">
-        <Link to="/">
-          <Button
-            type="text"
-            icon={<ArrowLeftOutlined />}
-            size="large"
-            className="back-button box-shadowed"
-            style={isDarkMode ? { background: "#26303b" } : { background: "white" }}
-          >
-            Back
-          </Button>
-        </Link>
-        <Row gutter={24} className="country-info">
-          <Col xs={24} md={12}>
-            <img src={country?.flags.svg} alt={country?.flags.alt} className="country-flag" />
-          </Col>
-          <Col xs={24} md={12}>
-            <div className="details-section">
-              <h1>{country?.name.common}</h1>
-              <div className="details-columns">
-                <div className="details-column">
-                  <p>
-                    <strong>Native Name: </strong>
-                    {country?.name && Object.values(country.name.nativeName)[0]?.common}
-                  </p>
-                  <p>
-                    <strong>Population: </strong>
-                    {country?.population.toLocaleString("en-US")}
-                  </p>
-                  <p>
-                    <strong>Region: </strong>
-                    {country?.region}
-                  </p>
-                  <p>
-                    <strong>Sub Region: </strong>
-                    {country?.subregion}
-                  </p>
-                  <p>
-                    <strong>Capital: </strong>
-                    {country?.capital.join(", ")}
-                  </p>
-                </div>
-                <div className="details-column">
-                  <p>
-                    <strong>Top Level Domain: </strong> {country?.tld.join(", ")}
-                  </p>
-                  <p>
-                    <strong>Currencies: </strong>
-                    {country?.currencies &&
-                      Object.values(country.currencies)
-                        .map((currency) => currency.name)
-                        .join(", ")}
-                  </p>
-                  <p>
-                    <strong>Languages: </strong>
-                    {country?.languages &&
-                      Object.values(country.languages)
-                        .map((language) => language)
-                        .join(", ")}
-                  </p>
-                </div>
-              </div>
-            </div>
-            {borderCountryNames.length > 0 && (
-              <div className="border-countries">
-                <h4>Border Countries: </h4>
-                <div className="border-country-buttons">
-                  {borderCountryNames.map((name, index) => (
-                    <Link key={index} to={`/country/${name}`}>
-                      <Button
-                        type="text"
-                        className="border-country-button box-shadowed"
-                        style={isDarkMode ? { background: "#26303b" } : { background: "white" }}
-                      >
-                        {name}
-                      </Button>
-                    </Link>
-                  ))}
+      {isLoading ? (
+        <Spin spinning={isLoading} percent="auto" fullscreen />
+      ) : (
+        <div className="country-detail">
+          <Link to="/">
+            <Button
+              type="text"
+              icon={<ArrowLeftOutlined />}
+              size="large"
+              className="back-button box-shadowed"
+              style={isDarkMode ? { background: "#26303b" } : { background: "white" }}
+            >
+              Back
+            </Button>
+          </Link>
+          <Row gutter={24} className="country-info">
+            <Col xs={24} md={12}>
+              <img src={country?.flags.svg} alt={country?.flags.alt} className="country-flag" />
+            </Col>
+            <Col xs={24} md={12}>
+              <div className="details-section">
+                <h1>{country?.name.common}</h1>
+                <div className="details-columns">
+                  <div className="details-column">
+                    <p>
+                      <strong>Native Name: </strong>
+                      {country?.name && Object.values(country.name.nativeName)[0]?.common}
+                    </p>
+                    <p>
+                      <strong>Population: </strong>
+                      {country?.population.toLocaleString("en-US")}
+                    </p>
+                    <p>
+                      <strong>Region: </strong>
+                      {country?.region}
+                    </p>
+                    <p>
+                      <strong>Sub Region: </strong>
+                      {country?.subregion}
+                    </p>
+                    <p>
+                      <strong>Capital: </strong>
+                      {country?.capital.join(", ")}
+                    </p>
+                  </div>
+                  <div className="details-column">
+                    <p>
+                      <strong>Top Level Domain: </strong> {country?.tld.join(", ")}
+                    </p>
+                    <p>
+                      <strong>Currencies: </strong>
+                      {country?.currencies &&
+                        Object.values(country.currencies)
+                          .map((currency) => currency.name)
+                          .join(", ")}
+                    </p>
+                    <p>
+                      <strong>Languages: </strong>
+                      {country?.languages &&
+                        Object.values(country.languages)
+                          .map((language) => language)
+                          .join(", ")}
+                    </p>
+                  </div>
                 </div>
               </div>
-            )}
-          </Col>
-        </Row>
-      </div>
+              {borderCountryNames.length > 0 && (
+                <div className="border-countries">
+                  <h4>Border Countries: </h4>
+                  <div className="border-country-buttons">
+                    {borderCountryNames.map((name, index) => (
+                      <Link key={index} to={`/country/${name}`}>
+                        <Button
+                          type="text"
+                          className="border-country-button box-shadowed"
+                          style={isDarkMode ? { background: "#26303b" } : { background: "white" }}
+                        >
+                          {name}
+                        </Button>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </Col>
+          </Row>
+        </div>
+      )}
     </Content>
   );
 };
