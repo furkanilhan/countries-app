@@ -4,6 +4,7 @@ import { CountryCardComponent } from "../CountryCardComponent/CountryCardCompone
 import { SearchComponent } from "../SearchComponent/SearchComponent";
 import { CountryInterface } from "../../interfaces/CountryInterface";
 import { MenuProps, Layout } from "antd";
+import { fetchData } from "../../services/apiService";
 import "./HomeComponent.scss";
 
 const { Content } = Layout;
@@ -18,20 +19,7 @@ export const HomeComponent = () => {
 
   useEffect(() => {
     const fetchBooks = async () => {
-      const baseUrl: string = "https://restcountries.com/v3.1";
-      let url: string = "";
-      if (search == "" && region == "") {
-        url = `${baseUrl}/all?fields=name,capital,population,region,flags`;
-      } else if (search != "") {
-        url = `${baseUrl}/name/${search}?fields=name,capital,population,region,flags`;
-      } else if (region != "") {
-        url = `${baseUrl}/region/${region}?fields=name,capital,population,region,flags`;
-      }
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error("Something went wrong!");
-      }
-      const responseData = await response.json();
+      const responseData = await fetchData(search, region);
       const loadedCountries: CountryInterface[] = [];
 
       for (const key in responseData) {
@@ -53,7 +41,7 @@ export const HomeComponent = () => {
           return { key: item.region, label: item.region };
         });
 
-      if (search == "" && region == "") setRegions(regions);
+      if (search === "" && region === "") setRegions(regions);
       setCountries(loadedCountries.sort((a, b) => a.name.common.localeCompare(b.name.common)));
       setIsLoading(false);
     };

@@ -1,8 +1,7 @@
-import { useState } from "react";
 import { ConfigProvider, Layout } from "antd";
 
 import { Routes, Route } from "react-router-dom";
-import { ThemeProvider, useTheme } from "./contexts/ThemeContext";
+import { useTheme } from "./contexts/ThemeContext";
 import "./App.css";
 import { CountryDetailComponent } from "./components/CountryDetailComponent/CountryDetailComponent";
 
@@ -21,6 +20,8 @@ export const App = () => {
     headerColor: "black",
     colorBgContainer: "white",
     colorBgElevated: "white",
+    colorBgTextActive: "red",
+    defaultActiveBg: "red",
   };
   const darkTheme = {
     colorBgBase: "#1d282f",
@@ -41,15 +42,18 @@ export const App = () => {
           token: isDarkMode ? darkTheme : lightTheme,
           components: {
             Layout: isDarkMode ? darkTheme : lightTheme,
+            Button: isDarkMode ? darkTheme : lightTheme,
           },
         }}
       >
-        <Layout>
+        <Layout style={{ minHeight: "100vh" }}>
           <HeaderComponent />
-          <Routes>
-            <Route path="/" element={<HomeComponent />} />
-            <Route path="/country/:countryName" element={<CountryDetailComponent />} />
-          </Routes>
+          <Layout style={{ padding: "0 50px" }}>
+            <Routes>
+              <Route path="/" element={<HomeComponent />} />
+              <Route path="/country/:countryName" element={<CountryDetailComponent />} />
+            </Routes>
+          </Layout>
         </Layout>
       </ConfigProvider>
     </>

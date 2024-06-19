@@ -18,6 +18,7 @@ export const SearchComponent = ({
     <div className="search-container">
       <Input
         style={isDarkMode ? { background: "#26303b" } : { background: "white" }}
+        className="search-input box-shadowed"
         variant="borderless"
         onChange={(e) => handleSearch(e.target.value)}
         value={search}

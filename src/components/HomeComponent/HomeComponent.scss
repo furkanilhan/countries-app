@@ -13,44 +13,63 @@
   width: 100%;
   margin-bottom: 20px;
 
-  @media (max-width: 768px) {
-    flex-direction: column; // Mobil görünümde alt alta gelsin
+  @media (max-width: 600px) {
+    flex-direction: column;
     align-items: stretch;
   }
 
   .search-container,
   .category-container {
     flex: 1;
-    margin: 10px;
+    margin: 50px 0 30px 0;
 
-    @media (max-width: 768px) {
-      margin: 10px 0; // Mobilde sağ ve soldan mesafeyi kaldır
+    @media (max-width: 600px) {
+      margin: 10px 0;
+    }
+
+    .search-input {
+      width: 75%;
+      height: 50px;
+    }
+    .category-dropdown {
+      width: 50%;
+      height: 50px;
     }
   }
 
   .category-container {
-    text-align: right; // Sağda hizalanmasını sağlamak için
+    text-align: right;
 
-    @media (max-width: 768px) {
-      text-align: left; // Mobilde sola hizala
+    @media (max-width: 600px) {
+      text-align: left;
     }
   }
 }
 
 .grid-container {
-  width: 100%; // Konteynerin genişliğini tam genişlik yapın
+  width: 100%;
   display: flex;
   justify-content: center;
-  padding: 0 20px; // Sağ ve soldan uzaklık için padding ekleyin
 
   .card-container {
     width: 100%;
     display: grid;
+    gap: 75px;
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
 
-    @media (max-width: 768px) {
-      grid-template-columns: 1fr; // Mobilde tek sütun
+    @media (max-width: 1200px) {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 50px;
+    }
+
+    @media (max-width: 876px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+    }
+
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr;
+      gap: 10px;
     }
   }
 }
