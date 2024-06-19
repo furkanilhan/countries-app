@@ -10,7 +10,7 @@ export const HomeComponent = () => {
   const [countries, setCountries] = useState<CountryInterface[]>([]);
   const [search, setSearch] = useState("");
   const [region, setRegion] = useState("");
-  const [regions, setRegions] = useState<string[]>([]);
+  const [regions, setRegions] = useState<MenuProps["items"]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState(null);
 
@@ -47,7 +47,9 @@ export const HomeComponent = () => {
         .filter((item, index, array) => {
           return array.findIndex((t) => t.region === item.region) === index;
         })
-        .map((item) => item.region);
+        .map((item) => {
+          return { key: item.region, label: item.region };
+        });
 
       if (search == "" && region == "") setRegions(regions);
       setCountries(loadedCountries.sort((a, b) => a.name.common.localeCompare(b.name.common)));
