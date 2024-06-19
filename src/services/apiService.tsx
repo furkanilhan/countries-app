@@ -23,8 +23,6 @@ export const fetchData = async (search: string, region: string) => {
   return await response.json();
 };
 
-// apiService.tsx
-
 export const fetchCountryDataByName = async (
   countryName: string
 ): Promise<CountryDetailInterface> => {
