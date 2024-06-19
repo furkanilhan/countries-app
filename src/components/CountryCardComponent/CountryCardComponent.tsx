@@ -10,7 +10,7 @@ export const CountryCardComponent: React.FC<{ country: CountryInterface }> = (pr
       <Card
         hoverable
         style={{ width: 240 }}
-        cover={<img alt="example" src={props.country.flags.png} />}
+        cover={<img alt="example" src={props.country.flags.png} height={160} />}
       >
         <Meta title={props.country.name.common} />
         <Meta title="Population" description={props.country.population} />

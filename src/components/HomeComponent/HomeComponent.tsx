@@ -3,8 +3,10 @@ import { CategoryComponent } from "../CategoryComponent/CategoryComponent";
 import { CountryCardComponent } from "../CountryCardComponent/CountryCardComponent";
 import { SearchComponent } from "../SearchComponent/SearchComponent";
 import { CountryInterface } from "../../interfaces/CountryInterface";
-import type { MenuProps } from "antd";
+import { MenuProps, Layout } from "antd";
 import "./HomeComponent.scss";
+
+const { Content } = Layout;
 
 export const HomeComponent = () => {
   const [countries, setCountries] = useState<CountryInterface[]>([]);
@@ -71,22 +73,24 @@ export const HomeComponent = () => {
   };
 
   return (
-    <>
-      <div className="filter-container">
-        <SearchComponent handleSearchText={handleSearchText} search={search} />
-        <CategoryComponent
-          handleCategorySelect={handleCategorySelect}
-          region={region}
-          regions={regions}
-        />
-      </div>
-      <div className="grid-container">
-        <div className="card-container">
-          {countries.map((country) => (
-            <CountryCardComponent country={country} />
-          ))}
+    <Content>
+      <div className="page-container">
+        <div className="filter-container">
+          <SearchComponent handleSearchText={handleSearchText} search={search} />
+          <CategoryComponent
+            handleCategorySelect={handleCategorySelect}
+            region={region}
+            regions={regions}
+          />
+        </div>
+        <div className="grid-container">
+          <div className="card-container">
+            {countries.map((country) => (
+              <CountryCardComponent country={country} />
+            ))}
+          </div>
         </div>
       </div>
-    </>
+    </Content>
   );
 };
