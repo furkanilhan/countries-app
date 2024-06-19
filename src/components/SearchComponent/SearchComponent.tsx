@@ -20,11 +20,16 @@ export const SearchComponent = ({
     handleSearchText(e.target.value);
   };
 
+  const iconStyle = {
+    color: theme ? "#ffffff" : "#898989",
+  };
+
   return (
     <div
       className={`input-container ${theme ? styles.darkTheme : styles.lightTheme} ${
         styles.primary
       }`}
+      style={iconStyle}
     >
       <div className="input-icon">
         <SearchOutlined />
@@ -32,9 +37,11 @@ export const SearchComponent = ({
       <input
         value={search}
         onChange={handleSearch}
-        className="custom-input"
+        className={`custom-input ${theme ? styles.darkTheme : styles.lightTheme} ${
+          styles.secondary
+        }`}
         type="text"
-        placeholder="Search"
+        placeholder="Search for a country..."
       />
     </div>
   );

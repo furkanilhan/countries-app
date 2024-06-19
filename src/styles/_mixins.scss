@@ -1,6 +1,10 @@
 @mixin theme($theme, $color-key) {
   background-color: map-get($theme, $color-key);
   color: map-get($theme, text-color);
+
+  &::placeholder {
+    color: map-get($theme, placeholder-color);
+  }
 }
 
 @mixin light-theme-primary {
