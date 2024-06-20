@@ -8,9 +8,9 @@ export const themes = {
     headerColor: "black",
     colorBgContainer: "white",
     colorBgElevated: "white",
-    colorBgTextActive: "red",
-    defaultActiveBg: "red",
     fontFamily: "Nunito Sans",
+    buttonBackground: "white",
+    searchIconColor: "#bbbbbb",
   },
   dark: {
     colorBgBase: "#1d282f",
@@ -23,5 +23,9 @@ export const themes = {
     colorBgElevated: "#26303b",
     colorTextQuaternary: "white",
     fontFamily: "Nunito Sans",
+    buttonBackground: "#26303b",
+    searchIconColor: "white",
   },
 };
+
+export type Theme = typeof themes.light;

@@ -15,7 +15,7 @@ export const CountryDetailComponent = () => {
   const [borderCountryNames, setBorderCountryNames] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState(null);
-  const { isDarkMode } = useTheme();
+  const { theme } = useTheme();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,7 +59,7 @@ export const CountryDetailComponent = () => {
               icon={<ArrowLeftOutlined />}
               size="large"
               className="back-button box-shadowed"
-              style={isDarkMode ? { background: "#26303b" } : { background: "white" }}
+              style={{ background: theme.buttonBackground }}
             >
               Back
             </Button>
@@ -124,7 +124,7 @@ export const CountryDetailComponent = () => {
                         <Button
                           type="text"
                           className="border-country-button box-shadowed"
-                          style={isDarkMode ? { background: "#26303b" } : { background: "white" }}
+                          style={{ background: theme.buttonBackground }}
                         >
                           {name}
                         </Button>
