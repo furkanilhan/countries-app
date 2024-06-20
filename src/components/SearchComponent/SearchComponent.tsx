@@ -1,5 +1,5 @@
 import { Input } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
+import { SearchOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import { useTheme } from "../../contexts/ThemeContext";
 
 export const SearchComponent = ({
@@ -25,6 +25,14 @@ export const SearchComponent = ({
         size="large"
         placeholder="Search for a country..."
         prefix={<SearchOutlined style={{ color: theme.searchIconColor }} />}
+        suffix={
+          search ? (
+            <CloseCircleOutlined
+              onClick={() => handleSearch("")}
+              style={{ color: theme.searchIconColor }}
+            />
+          ) : null
+        }
       />
     </div>
   );
