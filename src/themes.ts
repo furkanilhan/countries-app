@@ -11,6 +11,10 @@ export const themes = {
     fontFamily: "Nunito Sans",
     buttonBackground: "white",
     searchIconColor: "#bbbbbb",
+    controlItemBgActive: "#c6c6c6",
+    controlItemBgActiveHover: "#c6c6c6",
+    controlItemBgHover: "#c6c6c6",
+    headerHeight: 80,
   },
   dark: {
     colorBgBase: "#1d282f",
@@ -25,6 +29,10 @@ export const themes = {
     fontFamily: "Nunito Sans",
     buttonBackground: "#26303b",
     searchIconColor: "white",
+    controlItemBgActive: "#576e87",
+    controlItemBgActiveHover: "#576e87",
+    controlItemBgHover: "#576e87",
+    headerHeight: 80,
   },
 };
 

@@ -49,7 +49,6 @@ export const HomeComponent = () => {
     fetchBooks().catch((error: any) => {
       setIsLoading(false);
       setHttpError(error.message);
-      console.log(error);
       messageApi.open({
         type: "error",
         content: error.message,

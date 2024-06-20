@@ -2,14 +2,18 @@ import { CountryDetailInterface, CountryInterface } from "../interfaces/CountryI
 
 const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
+const fields = "name,capital,population,region,flags";
+const fieldsDetail =
+  "name,capital,population,region,tld,subregion,flags,languages,currencies,borders";
+
 export const fetchData = async (search: string, region: string) => {
   let url: string;
   if (search === "" && region === "") {
-    url = `${baseUrl}/all?fields=name,capital,population,region,flags`;
+    url = `${baseUrl}/all?fields=${fields}`;
   } else if (search !== "") {
-    url = `${baseUrl}/name/${search}?fields=name,capital,population,region,flags`;
+    url = `${baseUrl}/name/${search}?fields=${fields}`;
   } else {
-    url = `${baseUrl}/region/${region}?fields=name,capital,population,region,flags`;
+    url = `${baseUrl}/region/${region}?fields=${fields}`;
   }
 
   const response = await fetch(url);
@@ -26,7 +30,7 @@ export const fetchData = async (search: string, region: string) => {
 export const fetchCountryDataByName = async (
   countryName: string
 ): Promise<CountryDetailInterface> => {
-  const url: string = `${baseUrl}/name/${countryName}?fields=name,capital,population,region,tld,subregion,flags,languages,currencies,borders`;
+  const url: string = `${baseUrl}/name/${countryName}?fields=${fieldsDetail}`;
 
   const response = await fetch(url);
   if (!response.ok) {
