@@ -3,8 +3,11 @@ import { CategoryComponent } from "../CategoryComponent/CategoryComponent";
 import { CountryCardComponent } from "../CountryCardComponent/CountryCardComponent";
 import { SearchComponent } from "../SearchComponent/SearchComponent";
 import { CountryInterface } from "../../interfaces/CountryInterface";
-import type { MenuProps } from "antd";
+import { MenuProps, Layout, Spin, message, Empty } from "antd";
+import { fetchData } from "../../services/apiService";
 import "./HomeComponent.scss";
+
+const { Content } = Layout;
 
 export const HomeComponent = () => {
   const [countries, setCountries] = useState<CountryInterface[]>([]);
@@ -13,23 +16,11 @@ export const HomeComponent = () => {
   const [regions, setRegions] = useState<MenuProps["items"]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState(null);
+  const [messageApi, contextHolder] = message.useMessage();
 
   useEffect(() => {
     const fetchBooks = async () => {
-      const baseUrl: string = "https://restcountries.com/v3.1";
-      let url: string = "";
-      if (search == "" && region == "") {
-        url = `${baseUrl}/all?fields=name,capital,population,region,flags`;
-      } else if (search != "") {
-        url = `${baseUrl}/name/${search}?fields=name,capital,population,region,flags`;
-      } else if (region != "") {
-        url = `${baseUrl}/region/${region}?fields=name,capital,population,region,flags`;
-      }
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error("Something went wrong!");
-      }
-      const responseData = await response.json();
+      const responseData = await fetchData(search, region);
       const loadedCountries: CountryInterface[] = [];
 
       for (const key in responseData) {
@@ -51,13 +42,18 @@ export const HomeComponent = () => {
           return { key: item.region, label: item.region };
         });
 
-      if (search == "" && region == "") setRegions(regions);
+      if (search === "" && region === "") setRegions(regions);
       setCountries(loadedCountries.sort((a, b) => a.name.common.localeCompare(b.name.common)));
       setIsLoading(false);
     };
     fetchBooks().catch((error: any) => {
       setIsLoading(false);
       setHttpError(error.message);
+      console.log(error);
+      messageApi.open({
+        type: "error",
+        content: error.message,
+      });
     });
   }, [search, region]);
 
@@ -69,24 +65,36 @@ export const HomeComponent = () => {
     setSearch("");
     setRegion(region);
   };
-
   return (
-    <>
-      <div className="filter-container">
-        <SearchComponent handleSearchText={handleSearchText} search={search} />
-        <CategoryComponent
-          handleCategorySelect={handleCategorySelect}
-          region={region}
-          regions={regions}
-        />
-      </div>
-      <div className="grid-container">
-        <div className="card-container">
-          {countries.map((country) => (
-            <CountryCardComponent country={country} />
-          ))}
+    <Content>
+      {contextHolder}
+      {isLoading ? (
+        <Spin spinning={isLoading} percent="auto" fullscreen />
+      ) : (
+        <div className="page-container">
+          <div className="filter-container">
+            <SearchComponent handleSearchText={handleSearchText} search={search} />
+            <CategoryComponent
+              handleCategorySelect={handleCategorySelect}
+              region={region}
+              regions={regions}
+            />
+          </div>
+          <div className="grid-container">
+            {countries.length > 0 ? (
+              <div className="card-container">
+                {countries.map((country, index) => (
+                  <CountryCardComponent key={index} country={country} />
+                ))}
+              </div>
+            ) : (
+              <div className="empty-container">
+                <Empty />
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-    </>
+      )}
+    </Content>
   );
 };
