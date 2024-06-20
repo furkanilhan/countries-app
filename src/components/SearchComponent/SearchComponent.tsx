@@ -9,7 +9,7 @@ export const SearchComponent = ({
   search: string;
   handleSearchText: (text: string) => void;
 }) => {
-  const { isDarkMode } = useTheme();
+  const { theme } = useTheme();
   const handleSearch = (text: string) => {
     handleSearchText(text);
   };
@@ -17,14 +17,14 @@ export const SearchComponent = ({
   return (
     <div className="search-container">
       <Input
-        style={isDarkMode ? { background: "#26303b" } : { background: "white" }}
+        style={{ background: theme.colorBgContainer }}
         className="search-input box-shadowed"
         variant="borderless"
         onChange={(e) => handleSearch(e.target.value)}
         value={search}
         size="large"
         placeholder="Search for a country..."
-        prefix={<SearchOutlined style={isDarkMode ? { color: "white" } : { color: "#bbbbbb" }} />}
+        prefix={<SearchOutlined style={{ color: theme.searchIconColor }} />}
       />
     </div>
   );

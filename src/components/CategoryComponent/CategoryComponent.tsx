@@ -15,7 +15,7 @@ export const CategoryComponent: React.FC<CategoryComponentProps> = ({
   handleCategorySelect,
 }) => {
   const items: MenuProps["items"] = regions;
-  const { isDarkMode } = useTheme();
+  const { theme } = useTheme();
 
   const handleMenuClick: MenuProps["onClick"] = (e) => {
     handleCategorySelect(e.key);
@@ -32,11 +32,7 @@ export const CategoryComponent: React.FC<CategoryComponentProps> = ({
           selectedKeys: [region],
         }}
       >
-        <Button
-          type="text"
-          className="box-shadowed"
-          style={isDarkMode ? { background: "#26303b" } : { background: "white" }}
-        >
+        <Button type="text" className="box-shadowed" style={{ background: theme.buttonBackground }}>
           <Space>
             {region ? region : "Filter by Region"}
             {region && <CloseOutlined onClick={() => handleCategorySelect("")} />}
