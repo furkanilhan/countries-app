@@ -58,6 +58,7 @@ export const HomeComponent = () => {
 
   const handleSearchText = (search: string) => {
     setSearch(search);
+    setRegion("");
   };
 
   const handleCategorySelect = (region: string) => {
